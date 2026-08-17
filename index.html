@@ -1,1 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>The Siblings Brand</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #faf9f7;
+      color: #222;
+    }
+
+    header {
+      background: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .cart {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background: #eee9e3;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #666;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 25px 15px;
+    }
+
+    .category-btn {
+      border: 1px solid #222;
+      background: white;
+      padding: 10px 18px;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+
+    .category-btn:hover {
+      background: #222;
+      color: white;
+    }
+
+    .products {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .products h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .product img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .buy-btn {
+      width: 100%;
+      border: none;
+      background: #222;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .whatsapp {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-size: 28px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 200;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 30px;
+      background: #222;
+      color: white;
+      text-align: center;
+    }
+
+    @media (min-width: 700px) {
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">
+
+    <!-- REMPLACE logo.png PAR LE NOM DE TON IMAGE -->
+    <img src="logo.png" class="logo" alt="The Siblings Brand">
+
+    <div class="brand-name">
+      The Siblings Brand
+    </div>
+
+  </div>
+
+  <button class="cart" onclick="showCart()">
+    🛒 Cart (<span id="cartCount">0</span>)
+  </button>
+
+</header>
+
+
+<section class="hero">
+
+  <h1>The Siblings Brand</h1>
+
+  <p>Discover our latest collections</p>
+
+</section>
+
+
+<div class="categories">
+
+  <button class="category-btn" onclick="filterProducts('all')">
+    All
+  </button>
+
+  <button class="category-btn" onclick="filterProducts('boys')">
+    👦 Boys
+  </button>
+
+  <button class="category-btn" onclick="filterProducts('girls')">
+    👧 Girls
+  </button>
+
+  <button class="category-btn" onclick="filterProducts('women')">
+    👩 Women
+  </button>
+
+</div>
+
+
+<section class="products">
+
+  <h2>Our Collection</h2>
+
+  <div class="product-grid" id="productGrid"></div>
+
+</section>
+
+
+<a
+  class="whatsapp"
+  href="https://wa.me/96171444207"
+  target="_blank"
+  aria-label="WhatsApp"
+>
+  ☎
+</a>
+
+
+<footer>
+
+  <p>© 2026 The Siblings Brand</p>
+
+  <p>All rights reserved.</p>
+
+</footer>
+
+
+<script>
+
+  const products = [
+
+    {
+      id: 1,
+      name: "Girls Elegant Outfit",
+      price: 22,
+      category: "girls",
+      image: "https://via.placeholder.com/600"
+    },
+
+    {
+      id: 2,
+      name: "Boys Cotton Set",
+      price: 20,
+      category: "boys",
+      image: "https://via.placeholder.com/600"
+    },
+
+    {
+      id: 3,
+      name: "Women's Elegant Outfit",
+      price: 35,
+      category: "women",
+      image: "https://via.placeholder.com/600"
+    }
+
+  ];
+
+
+  let cart = [];
+
+
+  function displayProducts(list) {
+
+    const grid = document.getElementById("productGrid");
+
+    grid.innerHTML = "";
+
+
+    list.forEach(product => {
+
+      const card = document.createElement("div");
+
+      card.className = "product";
+
+
+      card.innerHTML = `
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+        >
+
+        <div class="product-info">
+
+          <div class="product-name">
+            ${product.name}
+          </div>
+
+          <div class="price">
+            $${product.price}
+          </div>
+
+          <button
+            class="buy-btn"
+            onclick="addToCart(${product.id})"
+          >
+            Add to cart
+          </button>
+
+        </div>
+
+      `;
+
+
+      grid.appendChild(card);
+
+    });
+
+  }
+
+
+  function filterProducts(category) {
+
+    if (category === "all") {
+
+      displayProducts(products);
+
+      return;
+
+    }
+
+
+    const filtered = products.filter(
+      product => product.category === category
+    );
+
+
+    displayProducts(filtered);
+
+  }
+
+
+  function addToCart(id) {
+
+    const product = products.find(
+      product => product.id === id
+    );
+
+
+    cart.push(product);
+
+
+    document.getElementById("cartCount").textContent =
+      cart.length;
+
+
+    alert(product.name + " added to cart!");
+
+  }
+
+
+  function showCart() {
+
+    if (cart.length === 0) {
+
+      alert("Your cart is empty.");
+
+      return;
+
+    }
+
+
+    let message =
+      "Hello The Siblings Brand! I would like to order:%0A%0A";
+
+
+    cart.forEach(product => {
+
+      message +=
+        "• " +
+        product.name +
+        " - $" +
+        product.price +
+        "%0A";
+
+    });
+
+
+    window.open(
+      "https://wa.me/96171444207?text=" + message,
+      "_blank"
+    );
+
+  }
+
+
+  displayProducts(products);
+
+</script>
+
+</body>
+</html>
